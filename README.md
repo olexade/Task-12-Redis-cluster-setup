@@ -8,6 +8,11 @@ cluster and sentinel setup.
 ## Check:
 
 ```
+root@node01:~# systemctl | grep redis
+  redis-7001.service                 loaded active     running   Redis Server 7001
+  redis-7002.service                 loaded active     running   Redis Server 7002
+  redis-7003.service                 loaded active     running   Redis Server 7003
+root@node01:~# 
 root@node01:~# redis-cli -c -p 7001 -a test01
 Warning: Using a password with '-a' or '-u' option on the command line interface may not be safe.
 127.0.0.1:7001> 
