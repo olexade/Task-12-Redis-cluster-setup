@@ -1,9 +1,11 @@
 # Task-12-Redis-cluster-setup
 
-etup redis in cluster configuration with 3 nodes on single VM.
+1. Setup redis in cluster configuration with 3 nodes on single VM.
 Don't forget to set redis client password.
-2. Investigate what sentinel cluster is and what is the difference between
+1. Investigate what sentinel cluster is and what is the difference between
 cluster and sentinel setup.
+
+## Check:
 
 ```
 root@node01:~# redis-cli -c -p 7001 -a test01
