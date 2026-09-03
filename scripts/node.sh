@@ -6,24 +6,28 @@ set -euxo pipefail
 
 config_path="/vagrant/configs"
 
-#sudo /usr/bin/redis-server /root/redis-cluster/7001/redis.conf &
-#sudo /usr/bin/redis-server /root/redis-cluster/7002/redis.conf &
-#sudo /usr/bin/redis-server /root/redis-cluster/7003/redis.conf &
+PORTS="7001 7002 7003 7004 7005 7006"
 
-sudo systemctl enable redis-7001.service
-sudo systemctl enable redis-7002.service
-sudo systemctl enable redis-7003.service
+for PORT in ${PORTS}; do
+  sudo systemctl enable redis-${PORT}.service
+done
 
-sudo systemctl start redis-7001.service
-sudo systemctl start redis-7002.service
-sudo systemctl start redis-7003.service
+for PORT in ${PORTS}; do
+  sudo systemctl start redis-${PORT}.service
+done
 
 systemctl stop redis-server.service
 systemctl disable redis-server.service
 
 sleep 10
 
-sudo /usr/bin/redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 --cluster-replicas 0 -a test01 --cluster-yes
+NODES=""
+for PORT in ${PORTS}; do
+  NODES="${NODES} 127.0.0.1:${PORT}"
+done
+
+# First 3 nodes become masters, remaining 3 become their replicas
+sudo /usr/bin/redis-cli --cluster create ${NODES} --cluster-replicas 1 -a test01 --cluster-yes
 
 sudo -i -u vagrant bash << EOF
 
