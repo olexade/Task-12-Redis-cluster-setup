@@ -11,7 +11,7 @@ IP_START = Integer(IP_SECTIONS.captures[1])
 NUM_WORKER_NODES = settings["nodes"]["workers"]["count"]
 
 Vagrant.configure("2") do |config|
-  config.vm.box_architecture = "arm64"
+  config.vm.box_architecture = "amd64"
   config.vm.provision "shell", env: { "IP_NW" => IP_NW, "IP_START" => IP_START, "NUM_WORKER_NODES" => NUM_WORKER_NODES }, inline: <<-SHELL
   apt-get update -y
   apt install redis -y
