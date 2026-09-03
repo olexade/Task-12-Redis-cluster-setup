@@ -18,9 +18,9 @@ Vagrant.configure("2") do |config|
   for i in `seq 1 ${NUM_WORKER_NODES}`; do
     echo "$IP_NW$((IP_START+i)) node0${i}" >> /etc/hosts
   done
-  mkdir -p ~/redis-cluster/{7001,7002,7003}
+  mkdir -p ~/redis-cluster/{7001,7002,7003,7004,7005,7006}
 
-for PORT in 7001 7002 7003; do
+for PORT in 7001 7002 7003 7004 7005 7006; do
   mkdir -p ~/redis-cluster/${PORT}
   cat <<EOF > ~/redis-cluster/${PORT}/redis.conf
 port ${PORT}
